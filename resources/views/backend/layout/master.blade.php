@@ -8,15 +8,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="icon" href="images/favicon.ico" type="image/ico" />
 
-    <title>@yield('title') 
+    <title>@yield('title')
       @if(auth()->user()->role == 'admin')
       {{_('Admin Dashboard ')}}
       @else
       {{_('User Dashboard ')}}
       @endif
     </title>
-
     <!-- Bootstrap -->
+    <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
     <link href="{{asset('backend/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="{{asset('backend/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
@@ -24,16 +24,18 @@
     <link href="{{asset('backend/vendors/nprogress/nprogress.css')}}" rel="stylesheet">
     <!-- iCheck -->
     <link href="{{asset('backend/vendors/iCheck/skins/flat/green.css')}}" rel="stylesheet">
-	
+
     <!-- bootstrap-progressbar -->
     <link href="{{asset('backend/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css')}}" rel="stylesheet">
     <!-- JQVMap -->
     <link href="{{asset('backend/vendors/jqvmap/dist/jqvmap.min.css')}}" rel="stylesheet"/>
     <!-- bootstrap-daterangepicker -->
     <link href="{{asset('backend/vendors/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
+    @stack('css_link')
 
     <!-- Custom Theme Style -->
     <link href="{{asset('backend/build/css/custom.min.css')}}" rel="stylesheet">
+    @stack('css')
   </head>
 
   <body class="nav-md">
@@ -80,6 +82,7 @@
     <script src="{{asset('backend/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js')}}"></script>
     <!-- iCheck -->
     <script src="{{asset('backend/vendors/iCheck/icheck.min.js')}}"></script>
+    @stack('js_link')
     <!-- Skycons -->
     <script src="{{asset('backend/vendors/skycons/skycons.js')}}"></script>
     <!-- Flot -->
@@ -101,9 +104,9 @@
     <!-- bootstrap-daterangepicker -->
     <script src="{{asset('backend/vendors/moment/min/moment.min.js')}}"></script>
     <script src="{{asset('backend/vendors/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
-
     <!-- Custom Theme Scripts -->
     <script src="{{asset('backend/build/js/custom.min.js')}}"></script>
-	
+    @stack('js')
   </body>
 </html>
+
