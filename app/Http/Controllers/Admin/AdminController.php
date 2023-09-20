@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 class AdminController extends Controller
 {
     function admin(){
-        return view('admin.dashboard');
+        return view('backend.admin.dashboard');
+    }
+
+    // User Management
+    function create(){
+        return view('backend.admin.user.create');
     }
 }
