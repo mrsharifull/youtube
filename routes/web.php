@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\Backend\Admin\AdminController;
+use App\Http\Controllers\Backend\User\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,8 +29,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('index', [AdminController::class, 'index'])->name('index');
         Route::get('create', [AdminController::class, 'create'])->name('create');
         Route::post('store', [AdminController::class, 'store'])->name('store');
-        Route::get('edit', [AdminController::class, 'edit'])->name('edit');
-        Route::post('update', [AdminController::class, 'update'])->name('update');
+        Route::get('show/{id}', [AdminController::class, 'show'])->name('show');
+        Route::get('edit/{id}', [AdminController::class, 'edit'])->name('edit');
+        Route::post('update/{id}', [AdminController::class, 'update'])->name('update');
+        Route::get('delete/{id}', [AdminController::class, 'delete'])->name('delete');
     });
 });
 

@@ -42,12 +42,12 @@
                     <td>{{$user->name}}</td>
                     <td>{{$user->role}}</td>
                     <td>{{$user->email}}</td>
-                    <td>{{date('Y-m-d', strtotime($user->created_at))}}</td>
-                    <td>{{$user->updated_at ? date('Y-m-d', strtotime($user->created_at)) : "N/A"}}</td>
+                    <td>{{date('d-m-Y', strtotime($user->created_at))}}</td>
+                    <td>{{($user->updated_at == $user->created_at) ? "N/A" : date('d-m-Y', strtotime($user->updated_at))}}</td>
                     <td>
-                        <a href="" class="btn btn-sm btn-dark"><i class="fa fa-eye"></i></a>
-                        <a href="" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
-                        <a href="" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
+                        <a href="javascript:void(0)" class="btn btn-sm btn-dark data-show" data-id="{{$user->id}}"><i class="fa fa-eye"></i></a>
+                        <a href="{{route('user.edit',$user->id)}}" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
+                        <a href="{{route('user.delete',$user->id)}}" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
                     </td>
                 </tr>
             @endforeach
@@ -59,6 +59,36 @@
         </div>
         </div>
     </div>
+</div>
+
+{{-- Show By Modal --}}
+
+
+<div class="modal fade bs-example-modal-lg show-modal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Show User</h4>
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 mx-auto data-append">
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    </div>
+
+    </div>
+</div>
 </div>
 
 @endsection
@@ -78,4 +108,65 @@
     <script src="{{asset('backend/vendors/jszip/dist/jszip.min.js')}}"></script>
     <script src="{{asset('backend/vendors/pdfmake/build/pdfmake.min.js')}}"></script>
     <script src="{{asset('backend/vendors/pdfmake/build/vfs_fonts.js')}}"></script>
+@endpush
+@push('js')
+<script>
+    $(document).ready(function() {
+        $('.data-show').on('click', function() {
+            let id = $(this).data('id');
+            let _url = ("{{ route('user.show', ['id']) }}");
+            let __url = _url.replace('id', id);
+            $.ajax({
+                url: __url,
+                method: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    var created_at = `{{date('m-d-Y', strtotime('${data.user.created_at}'))}}`;
+                    var update = `{{date('m-d-Y', strtotime('${data.user.updated_at}'))}}`;
+                    var updated_at = 'N/A';
+                    if(data.user.updated_at && data.user.updated_at != data.user.created_at){
+                        updated_at = update;
+                    }
+                    var data = `
+                    <table class="table">
+                        <tr>
+                            <th>Name</th>
+                            <th>:</th>
+                            <td>${data.user.name}</td>
+                        </tr>
+                        <tr>
+                            <th>Email</th>
+                            <th>:</th>
+                            <td>${data.user.email}</td>
+                        </tr>
+                        <tr>
+                            <th>Role</th>
+                            <th>:</th>
+                            <td>${data.user.role}</td>
+                        </tr>
+                        <tr>
+                            <th>Created At</th>
+                            <th>:</th>
+                            <td>${created_at}</td>
+                        </tr>
+                        <tr>
+                            <th>Updated At</th>
+                            <th>:</th>
+                            <td>${updated_at}</td>
+                        </tr>
+
+                    </table>
+                    `;
+                    $('.data-append').html(data);
+                    $('.show-modal').modal('show');
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching member data:', error);
+                }
+            });
+        });
+    });
+
+</script>
+
 @endpush
