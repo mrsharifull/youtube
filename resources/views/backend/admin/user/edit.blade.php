@@ -21,7 +21,7 @@
             </div>
             <div class="x_content">
                 <br />
-                <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post" action="{{route('user.update',$user->id)}}">
+                <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post" action="{{route('user.update',$user->id)}}" enctype="multipart/form-data">
                     @csrf
                     <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="name">Name <span class="required">*</span>
@@ -30,6 +30,19 @@
                             <input type="text" id="name" value="{{$user->name}}" name="name" required="required" class="form-control" placeholder="Enter name">
                         </div>
                         @include('alerts.feedback', ['field' => 'name'])
+                    </div>
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="image">Profile Photo<span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="file" accept="image/*" id="image" name="image" class="form-control" placeholder="Upload image image">
+                            @if($user->image)
+                                <div class="image d-flex align-items-center py-4">
+                                    <img src="{{asset('storage/'.$user->image)}}" height="150px" width="200px" alt="{{$user->title}}" style="border-radius: 5px; padding:10px; border: 1px solid gray;">
+                                </div>
+                            @endif
+                        </div>
+                        @include('alerts.feedback', ['field' => 'image'])
                     </div>
                     <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="email">Email <span class="required">*</span>

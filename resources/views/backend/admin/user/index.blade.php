@@ -29,6 +29,7 @@
           <thead>
             <tr>
               <th>Name</th>
+              <th>Photo</th>
               <th>Role</th>
               <th>Email</th>
               <th>Created At</th>
@@ -40,6 +41,9 @@
             @foreach ($users as $user)
                 <tr>
                     <td>{{$user->name}}</td>
+                    <td>
+                        <img class="border p-1 rounded"  src="{{ asset('storage/'.$user->image)}}" height="60px" width="60px" alt="{{$user->name}}">
+                    </td>
                     <td>{{$user->role}}</td>
                     <td>{{$user->email}}</td>
                     <td>{{date('d-m-Y', strtotime($user->created_at))}}</td>
@@ -124,6 +128,7 @@
                     var created_at = `{{date('m-d-Y', strtotime('${data.user.created_at}'))}}`;
                     var update = `{{date('m-d-Y', strtotime('${data.user.updated_at}'))}}`;
                     var updated_at = 'N/A';
+                    var image = `{{ asset("storage/".'${data.user.image}') }}`;
                     if(data.user.updated_at && data.user.updated_at != data.user.created_at){
                         updated_at = update;
                     }
@@ -133,6 +138,13 @@
                             <th>Name</th>
                             <th>:</th>
                             <td>${data.user.name}</td>
+                        </tr>
+                        <tr>
+                            <th>Photo</th>
+                            <th>:</th>
+                            <td>
+                                <img src='${image}' height="60px" width="60px" class="border p-1 rounded" alt="{{$user->name}}">    
+                            </td>
                         </tr>
                         <tr>
                             <th>Email</th>

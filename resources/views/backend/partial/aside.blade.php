@@ -1,7 +1,7 @@
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
                   <div class="navbar nav_title" style="border: 0;">
-                    <a href="{{route('admin.dashboard')}}" class="site_title"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+                    <a href="{{route('admin.dashboard')}}" class="site_title"><i class="fa fa-dashboard"></i> <span>Admin</span></a>
                   </div>
 
                   <div class="clearfix"></div>
@@ -9,7 +9,7 @@
                   <!-- menu profile quick info -->
                   <div class="profile clearfix">
                     <div class="profile_pic">
-                        <img src="{{asset('backend/images/img.jpg')}}" alt="..." class="img-circle profile_img">
+                        <img src="{{Auth::user()->image ? asset('storage/'.Auth::user()->image) : asset('no_img.jpg')}}" alt="{{Auth::user()->name}}"  height="60px" width="60px" class="img-circle profile_img">
                     </div>
                     <div class="profile_info">
                       <span>Welcome,</span>
@@ -68,7 +68,7 @@
                 <ul class="nav side-menu">
                     <li><a href="{{route('user.index')}}"><i class="fa fa-users"></i> User Management</a></li>
 
-                    <li class="{{ Request::is('video/*') ? 'active' : '' }}"><a><i class="fa fa-video"></i> Video Management <span class="fa fa-chevron-down"></span></a>
+                    <li class="{{ Request::is('video/*') ? 'active' : '' }}"><a><i class="fa fa-video-camera"></i> Video Management <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu {{ Request::is('video/*') ? 'd-block' : '' }}">
                             <li class="{{ Request::is('video/category/*') ? 'current-page' : '' }}"><a href="{{route('video.cat.index')}}">Category</a></li>
                             <li class="{{ Request::is('video/data/*') ? 'current-page' : '' }}"><a href="{{route('video.index')}}">Video</a></li>

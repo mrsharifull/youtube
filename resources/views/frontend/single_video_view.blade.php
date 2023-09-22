@@ -9,7 +9,7 @@
                   <h1 style="margin-top: 15px;">{{$video->title}}</h1>
                   <div class="flex-1-sub-colam">
                       <div class="colam-1">
-                       <div class="author_image"> <a href="#"><img src="{{asset('storage/'.$video->thumbnail)}}" alt="{{$video->user->name}}"></a></div>
+                       <div class="author_image"> <a href="#"><img src="{{asset('storage/'.$video->user->image)}}" alt="{{$video->user->name}}"></a></div>
 
                         <div class="text"> <a href="#"> {{$video->user->name}}</a> <p>150K subscrbe</p> </div>
                         <div class="buttons"> <a href="#">Subscrbe</a>  </div>

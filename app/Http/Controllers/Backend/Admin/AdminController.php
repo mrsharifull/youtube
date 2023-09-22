@@ -27,6 +27,7 @@ class AdminController extends Controller
 
         $validator = Validator::make($req->all(), [
             'name' => ['required', 'string', 'max:255'],
+            'image' => ['required','image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'role' => ['nullable'],
             'password' => ['required', 'string', 'min:8'],
@@ -36,6 +37,11 @@ class AdminController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
         $user = new User();
+        if ($req->hasFile('image')) {
+            $image = $req->file('image');
+            $path = $image->store('users/'.auth()->user()->id.'/image', 'public');
+            $user->image = $path;
+        }
         $user->name = $req->name;
         $user->email = $req->email;
         $user->password = Hash::make($req->password);
@@ -51,6 +57,7 @@ class AdminController extends Controller
 
         $validator = Validator::make($req->all(), [
             'name' => ['required', 'string', 'max:255'],
+            'image' => ['nullable','image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
             'email' => [
                 'required',
                 'email',
@@ -64,6 +71,12 @@ class AdminController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
         $user = User::findOrFail($id);
+        if ($req->hasFile('image')) {
+            $image = $req->file('image');
+            $path = $image->store('users/'.auth()->user()->id.'/image', 'public');
+            $this->fileDelete($user->image);
+            $user->image = $path;
+        }
         $user->name = $req->name;
         $user->email = $req->email;
         $user->password = Hash::make($req->password);

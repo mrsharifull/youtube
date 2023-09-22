@@ -18,7 +18,7 @@
 
                         <div class="video-content-1">
                             <div class="content_wrap">
-                                <img class="author_image" src="{{asset('storage/'.$video->thumbnail)}}" alt="{{$video->user->name}}">
+                                <img class="author_image" src="{{asset('storage/'.$video->user->image)}}" alt="{{$video->user->name}}">
                                 <div class="content-area">
                                     <p class="content-1">{{Str::limit($video->title, 70, '...')}}</p>
                                     <p class="content-2">{{$video->user->name}}</p>

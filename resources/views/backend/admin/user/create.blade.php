@@ -21,7 +21,7 @@
             </div>
             <div class="x_content">
                 <br />
-                <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post" action="{{route('user.store')}}">
+                <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post" action="{{route('user.store')}}" enctype="multipart/form-data">
                     @csrf
                     <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="name">Name <span class="required">*</span>
@@ -30,6 +30,14 @@
                             <input type="text" id="name" name="name" required="required" class="form-control" placeholder="Enter name">
                         </div>
                         @include('alerts.feedback', ['field' => 'name'])
+                    </div>
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="image">Profile Photo<span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="file" accept="image/*" id="image" name="image" required="required" class="form-control" placeholder="Upload image image">
+                        </div>
+                        @include('alerts.feedback', ['field' => 'image'])
                     </div>
                     <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="email">Email <span class="required">*</span>
