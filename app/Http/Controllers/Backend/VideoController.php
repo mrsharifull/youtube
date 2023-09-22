@@ -23,8 +23,8 @@ class VideoController extends Controller
 
         $validator = Validator::make($req->all(), [
             'title' => ['required', 'string', 'max:255'],
-            'video' => ['required','file','mimes:mp4', 'max:20480'],
-            'thumbnail' => ['required','image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            'video' => ['required','file','mimes:mp4'],
+            'thumbnail' => ['required','image', 'mimes:jpeg,png,jpg,gif'],
             'description' => ['required', 'string'],
             'cat_id' => ['required','exists:video_categories,id'],
         ]);
@@ -59,8 +59,8 @@ class VideoController extends Controller
 
         $validator = Validator::make($req->all(), [
             'title' => ['required', 'string', 'max:255'],
-            'video' => ['nullable','file','mimes:mp4', 'max:20480'],
-            'thumbnail' => ['nullable','image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            'video' => ['nullable','file','mimes:mp4'],
+            'thumbnail' => ['nullable','image', 'mimes:jpeg,png,jpg,gif'],
             'description' => ['required', 'string'],
             'cat_id' => ['required','exists:video_categories,id'],
         ]);
