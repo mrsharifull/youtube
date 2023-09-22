@@ -100,14 +100,36 @@ img{
 .main-container-content-2 .fa-microphone:hover{
     background: #80808063;
 }
-
+.main-container-content-3{
+    float:right;
+}
+.main-container-content-3 .dashboard{
+    background: #00adff;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+.main-container-content-3 .login{
+    background: #00ffd0;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+.main-container-content-3 .registration{
+    background: #5900ff;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+}
 .main-container-content-3 .fa-video{
     height: 43px;
     width: 45px;
     font-size: 23px;
     padding-top: 10px;
     padding-left: 10px;
-    margin-left: 110px;
     cursor: pointer;
     transition: .4s;
     opacity: .6;

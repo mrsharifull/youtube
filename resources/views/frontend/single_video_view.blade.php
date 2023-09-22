@@ -40,7 +40,7 @@
                     @endif
                     <div class="sub-flex-colam">
                         <div class="videos">
-                                <video controls autoplay loop> <source src="{{asset('storage/'.$cat_video->video)}}"></video>
+                                <video controls> <source src="{{asset('storage/'.$cat_video->video)}}"></video>
                         </div>
                         <div class="text">
                             <h2>{{$cat_video->title}}</h2>

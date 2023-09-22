@@ -32,13 +32,13 @@
                         <span class="span">9+</span>
                         @if(auth()->user() == false)
                             <a class="login" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            <a href="{{ route('register') }}">{{ __('Register') }}</a>
+                            <a class="registration" href="{{ route('register') }}">{{ __('Register') }}</a>
 
                         @else
                             @if(auth()->user()->role == 'admin')
-                            <a class="nav-link" href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a>
+                            <a class="nav-link dashboard" href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a>
                             @else
-                            <a class="nav-link" href="{{ route('user.dashboard') }}">{{ __('Dashboard') }}</a>
+                            <a class="nav-link dashboard" href="{{ route('user.dashboard') }}">{{ __('Dashboard') }}</a>
                             @endif
                         @endif
 
