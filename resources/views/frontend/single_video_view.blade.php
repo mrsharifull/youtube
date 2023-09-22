@@ -39,9 +39,9 @@
                         @continue
                     @endif
                     <div class="sub-flex-colam">
-                        <div class="videos">
+                        <a href="{{route('home.single',$cat_video->id)}}" class="videos">
                                 <video controls> <source src="{{asset('storage/'.$cat_video->video)}}"></video>
-                        </div>
+                        </a>
                         <div class="text">
                             <h2>{{$cat_video->title}}</h2>
                             <h3>{{$cat_video->user->name}}</h3>
@@ -49,6 +49,8 @@
                         </div>
                     </div>
                 @endforeach
+                
+                
              </div>
        </div>
 

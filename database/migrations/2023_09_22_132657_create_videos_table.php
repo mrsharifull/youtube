@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('video');
             $table->string('thumbnail');
             $table->longText('description');
-            $table->boolean('status')->default(0);
+            $table->boolean('status')->default(1);
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 
