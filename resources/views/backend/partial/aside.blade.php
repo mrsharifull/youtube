@@ -71,7 +71,7 @@
                     <li class="{{ Request::is('video/*') ? 'active' : '' }}"><a><i class="fa fa-video"></i> Video Management <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu {{ Request::is('video/*') ? 'd-block' : '' }}">
                             <li class="{{ Request::is('video/category/*') ? 'current-page' : '' }}"><a href="{{route('video.cat.index')}}">Category</a></li>
-                            <li class="{{ Request::is('video/videos/*') ? 'current-page' : '' }}"><a href="">Video</a></li>
+                            <li class="{{ Request::is('video/data/*') ? 'current-page' : '' }}"><a href="{{route('video.index')}}">Video</a></li>
                         </ul>
                     </li>
                 </ul>

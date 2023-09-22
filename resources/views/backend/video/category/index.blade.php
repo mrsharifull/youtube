@@ -1,5 +1,5 @@
 @extends('backend.layout.master')
-@section('title','User List')
+@section('title','Category List')
 @push('css_link')
 <link href="{{asset('backend/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css')}}" rel="stylesheet">
 <link href="{{asset('backend/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css')}}" rel="stylesheet">
@@ -26,34 +26,34 @@
               <div class="col-sm-12">
                 <div class="card-box table-responsive">
         <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Status</th>
-              <th>Created At</th>
-              <th>Updated At</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            @foreach ($cats as $cat)
+            <thead>
                 <tr>
-                    <td>{{$cat->name}}</td>
-                    <td>
-                        <span class="badge {{$cat->status == 1 ? 'badge-success' : 'badge-warning' }}">{{$cat->status == 1 ? 'Active' : 'Deactive' }}</span>
-                    </td>
-                    <td>{{date('d-m-Y', strtotime($cat->created_at))}}</td>
-                    <td>{{($cat->updated_at == $cat->created_at) ? "N/A" : date('d-m-Y', strtotime($cat->updated_at))}}</td>
-                    <td>
-                        <a href="javascript:void(0)" title="View" class="btn btn-sm btn-dark data-show" data-id="{{$cat->id}}"><i class="fa fa-eye"></i></a>
-                        <a href="{{route('video.cat.edit',$cat->id)}}" title="Edit" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
-                        <a href="{{route('video.cat.delete',$cat->id)}}" title="Delete" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
-                        <a href="{{route('video.cat.status',$cat->id)}}" title="Change Status" class="btn btn-sm {{$cat->status == 1 ? 'btn-warning' : 'btn-success'}}"><i class="fa {{$cat->status == 1 ? 'fa-close' : 'fa-check'}}"></i></a>
-                    </td>
+                  <th>Name</th>
+                  <th>Status</th>
+                  <th>Created At</th>
+                  <th>Updated At</th>
+                  <th>Action</th>
                 </tr>
-            @endforeach
+              </thead>
+              <tbody>
+                @foreach ($cats as $cat)
+                    <tr>
+                        <td>{{$cat->name}}</td>
+                        <td>
+                            <span class="badge {{$cat->status == 1 ? 'badge-success' : 'badge-warning' }}">{{$cat->status == 1 ? 'Active' : 'Deactive' }}</span>
+                        </td>
+                        <td>{{date('d-m-Y', strtotime($cat->created_at))}}</td>
+                        <td>{{($cat->updated_at == $cat->created_at) ? "N/A" : date('d-m-Y', strtotime($cat->updated_at))}}</td>
+                        <td>
+                            <a href="javascript:void(0)" title="View" class="btn btn-sm btn-dark data-show" data-id="{{$cat->id}}"><i class="fa fa-eye"></i></a>
+                            <a href="{{route('video.cat.edit',$cat->id)}}" title="Edit" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
+                            <a href="{{route('video.cat.delete',$cat->id)}}" title="Delete" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
+                            <a href="{{route('video.cat.status',$cat->id)}}" title="Change Status" class="btn btn-sm {{$cat->status == 1 ? 'btn-warning' : 'btn-success'}}"><i class="fa {{$cat->status == 1 ? 'fa-close' : 'fa-check'}}"></i></a>
+                        </td>
+                    </tr>
+                @endforeach
 
-          </tbody>
+              </tbody>
         </table>
       </div>
         </div>

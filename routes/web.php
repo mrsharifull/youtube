@@ -1,10 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Backend\Admin\AdminController;
 use App\Http\Controllers\Backend\User\UserController;
 use App\Http\Controllers\Backend\VideoCategoryController;
+use App\Http\Controllers\Backend\VideoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +21,8 @@ use App\Http\Controllers\Backend\VideoCategoryController;
 
 Auth::routes();
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [FrontendController::class, 'index'])->name('home');
+Route::get('single-video/{id}', [FrontendController::class, 'single'])->name('home.single');
 
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('admin/dashboard',[AdminController::class, 'admin'])->name('admin.dashboard');
@@ -36,6 +38,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('delete/{id}', [AdminController::class, 'delete'])->name('delete');
     });
     Route::group(['as' => 'video.', 'prefix' => 'video'], function () {
+        // Category Routes
         Route::get('category/index', [VideoCategoryController::class, 'index'])->name('cat.index');
         Route::get('category/create', [VideoCategoryController::class, 'create'])->name('cat.create');
         Route::post('category/store', [VideoCategoryController::class, 'store'])->name('cat.store');
@@ -44,6 +47,15 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::post('category/update/{id}', [VideoCategoryController::class, 'update'])->name('cat.update');
         Route::get('category/delete/{id}', [VideoCategoryController::class, 'delete'])->name('cat.delete');
         Route::get('category/status/{id}', [VideoCategoryController::class, 'status'])->name('cat.status');
+        // Video Routes
+        Route::get('data/index', [VideoController::class, 'index'])->name('index');
+        Route::get('data/create', [VideoController::class, 'create'])->name('create');
+        Route::post('data/store', [VideoController::class, 'store'])->name('store');
+        Route::get('data/show/{id}', [VideoController::class, 'show'])->name('show');
+        Route::get('data/edit/{id}', [VideoController::class, 'edit'])->name('edit');
+        Route::post('data/update/{id}', [VideoController::class, 'update'])->name('update');
+        Route::get('data/delete/{id}', [VideoController::class, 'delete'])->name('delete');
+        Route::get('data/status/{id}', [VideoController::class, 'status'])->name('status');
     });
 });
 

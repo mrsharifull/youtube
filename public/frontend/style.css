@@ -66,7 +66,7 @@ img{
     width: 505px;
     height: 37px;
    border: 1px solid #80808048;
-    
+
     border-top-left-radius: 25px;
     border-bottom-left-radius: 25px;
 }
@@ -125,12 +125,12 @@ img{
     font-size: 23px;
     padding-top: 10px;
     padding-left: 10px;
-    
+
     cursor: pointer;
     transition: .4s;
     opacity: .6;
-    
-   
+
+
     padding-top: 10px;
     padding-left: 10px;
     margin-left: 19px;
@@ -175,11 +175,11 @@ img{
     list-style: none;
     padding-left: 20px;
     margin-top: 30px;
-    
+
 }
 .main-part .flex-column-1{
     width: 200px;
- 
+
 }
 .main-part .flex-column-2{
     padding-top: 30px;
@@ -188,14 +188,14 @@ img{
     text-decoration: none;
     text-transform: capitalize;
     color: black;
-    
+
     padding-left: 40px;
     font-size: 15px;
-    
+
 }
 .main-part .container-main ul .home{
     padding: 15px 14px !important;
-    
+
     background: #80808063;
     border-radius: 15px;
     border: none !important;
@@ -227,27 +227,41 @@ img{
     margin-bottom: 150px;
     width: 100%;
 }
-.video-content-1 .content-1{
+.flex-column-2-content-1 .thumbnail{
+    border-radius: 5px;
+    position: relative;
+}
+.flex-column-2-content-1 .thumbnail::after{
+    content: '\f16a';
+    font-family: 'FontAwesome';
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    font-size: 60px;
+    color:red;
+}
+.flex-column-2-content-1 img{
+    border-radius: 5px;
+}
+.video-content-1 .content_wrap{
     font-weight: 500;
     font-size: 18px;
     padding-top: 15px;
-    padding-left: 36px;
-    position: relative
+    display: flex;
+    gap: 10px;
 }
-.video-content-1 .content-1::before{
-    content: '';
-    position: absolute;
-    height: 32px;
-    width: 30px;
-    background: black;
-    border-radius: 50px;
-    left: 0;
+.video-content-1 .content_wrap .author_image{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
 }
+
 .video-content-1 .content-2{
     color: #808080;
     text-transform: capitalize;
     padding-top: 18px;
-    padding-left: 34px;
     position: relative;
     line-height: 10px;
     cursor: pointer;
@@ -267,7 +281,6 @@ img{
     color: #808080;
     text-transform: capitalize;
     padding-top: 10px;
-    padding-left: 34px;
     font-size: 15px;
     cursor: pointer;
 }
@@ -317,7 +330,7 @@ img{
     color: #808080;
 }
 .top{
-    
+
 }
 .top .all{
     background: black !important;
@@ -336,7 +349,7 @@ img{
     text-decoration: none;
     color: black;
     padding: 10px 20px !important;
-    
+
     background: #8080801f;
     border-radius: 10px;
 }
@@ -358,9 +371,9 @@ img{
 }
 
 body{
-   
-    font-family: 'Roboto', sans-serif; 
-   
+
+    font-family: 'Roboto', sans-serif;
+
 }
 
 /*.container{
@@ -391,13 +404,13 @@ body{
 .header-section .flex-colam1{
 
     width: 20%;
-    
+
 }
 
 .header-section .flex-colam2{
     width: 40%;
     margin: 0 10%;
-    
+
 }
 .header-section .flex-colam3{
     width: 20%;
@@ -411,15 +424,15 @@ body{
     height: 42px;
     border: 1px solid black;
     font-size: 20px;
-   
+
 }
 .header-section input:focus{
-    
+
     outline: none;
 }
 
 .header-section ::placeholder{
-   
+
     font-size: 20px;
 }
 
@@ -435,7 +448,7 @@ body{
 .header-section .flex-colam2-1{
     display: grid;
     grid-template-columns: 6fr 1fr;
-    
+
 }
 
 
@@ -457,10 +470,10 @@ body{
 .header-section .manu{
     transition: .4s;
 }
-.header-section .manu i:hover{ 
-  
+.header-section .manu i:hover{
+
     background-color: rgb(184, 196, 206);
-    
+
 }
 
 
@@ -472,11 +485,11 @@ body{
 .header-section  a:last-child{
     font-size: 30px;
 
-} 
+}
 
 
 .header-section  .submits{
-    position: relative;                       
+    position: relative;
 }
 
 
@@ -511,7 +524,7 @@ body{
 
 
 .header-section .videos{
-    
+
     padding: 10px 10px;
     border-radius: 50%;
     transition: .4s;
@@ -524,7 +537,7 @@ body{
 
 
 .header-section .bel-icon{
-    
+
     padding: 8px 10px;
     border-radius: 50%;
     transition: .4s;
@@ -541,7 +554,7 @@ body{
 .videos-section .main-colam{
     display:flex;
     flex-wrap: wrap;
-  
+
 }
 .videos-section .flex-colam1 video{
     width: 100%;
@@ -550,9 +563,9 @@ body{
 .videos-section .flex-colam1{
     width: 58%;
     margin-top: 30px;
-   
-   
-    
+
+
+
 }
 .videos-section .flex-1-sub-colam{
    margin-top: 20px;
@@ -565,7 +578,7 @@ body{
 .videos-section .like-dislike {
     display: grid;
     grid-template-columns: 2fr 1fr 2fr 1fr;
-    align-items: center; 
+    align-items: center;
 }
 
 .videos-section .like input{
@@ -581,13 +594,13 @@ body{
 
 }
 .videos-section .dislike input{
-    border-top: 1px solid black ; 
-    border-right: 1px solid black ; 
-    border-bottom: 1px solid rgb(46, 45, 45) ; 
+    border-top: 1px solid black ;
+    border-right: 1px solid black ;
+    border-bottom: 1px solid rgb(46, 45, 45) ;
     border-radius: 0 25px  25px 0;
     transition: .4s;
 }
- 
+
 .videos-section .dislike:hover input{
     background-color: #c6c1c1;
 }
@@ -595,7 +608,7 @@ body{
 .videos-section .like{
     margin-top: -4px;
     position: relative;
-   
+
 }
 
 
@@ -611,7 +624,7 @@ body{
 }
 
 .videos-section .dislike{
-   position: relative; 
+   position: relative;
 }
 
 .videos-section .dislike::after{
@@ -653,7 +666,7 @@ body{
 }
 
 
- 
+
 .videos-section .three-dot {
     margin-left: 7px;
     padding-left: 11px;
@@ -669,24 +682,25 @@ body{
      display: flex;
      flex-wrap: wrap;
      align-items: center;
-   
-    
+
+
 }
-  
+
  .videos-section .flex-1-sub-colam a{
     text-decoration: none;
-   
+
  }
  .videos-section  input{
     width: 100%;
     height: 40px;
     border: none;
  }
- .videos-section .flex-1-sub-colam .icon{
-   
-   
-    color: rgb(206, 197, 197);
-    font-size: 30px;
+ .videos-section .flex-1-sub-colam .author_image img{
+
+
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
 
 
  }
@@ -696,10 +710,11 @@ body{
     margin: 0 15px;
  }
 
+
  .videos-section .flex-1-sub-colam .text p{
     font-size: 15px;
  }
- 
+
 
 .videos-section .flex-1-sub-colam .buttons a{
     border-radius: 50px;
@@ -711,8 +726,8 @@ body{
 .videos-section .flex-colam2{
     width: 40%;
     margin-left: 2%;
-   
-   
+
+
 }
 
 .videos-section .videos video{
@@ -728,7 +743,7 @@ body{
     grid-template-columns: 1fr 1fr;
     column-gap: 20px;
     margin-top: 20px;
-   
+
 }
 
 .videos-section  .top-text{
@@ -747,7 +762,7 @@ body{
     background-color: #716d77;
     padding: 8px 12px;
     border-radius: 10px;
-   
+
 }
 .videos-section .seecend-text{
     font-size: 1.2rem;
@@ -778,18 +793,18 @@ body{
     font-size: 16px;
     font-weight: 500;
     margin-top: 10px;
-    
+
 }
 
 
 .videos-section h4{
     font-size: 16px;
     font-weight: 600;
-    
+
 }
 
 .videos-section textarea ::placeholder{
     margin-left: 20px;
-   
+
 }
 
