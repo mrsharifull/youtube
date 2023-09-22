@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Backend\Admin\AdminController;
 use App\Http\Controllers\Backend\User\UserController;
+use App\Http\Controllers\Backend\VideoCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,16 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('edit/{id}', [AdminController::class, 'edit'])->name('edit');
         Route::post('update/{id}', [AdminController::class, 'update'])->name('update');
         Route::get('delete/{id}', [AdminController::class, 'delete'])->name('delete');
+    });
+    Route::group(['as' => 'video.', 'prefix' => 'video'], function () {
+        Route::get('category/index', [VideoCategoryController::class, 'index'])->name('cat.index');
+        Route::get('category/create', [VideoCategoryController::class, 'create'])->name('cat.create');
+        Route::post('category/store', [VideoCategoryController::class, 'store'])->name('cat.store');
+        Route::get('category/show/{id}', [VideoCategoryController::class, 'show'])->name('cat.show');
+        Route::get('category/edit/{id}', [VideoCategoryController::class, 'edit'])->name('cat.edit');
+        Route::post('category/update/{id}', [VideoCategoryController::class, 'update'])->name('cat.update');
+        Route::get('category/delete/{id}', [VideoCategoryController::class, 'delete'])->name('cat.delete');
+        Route::get('category/status/{id}', [VideoCategoryController::class, 'status'])->name('cat.status');
     });
 });
 

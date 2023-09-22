@@ -1,21 +1,21 @@
-<div class="col-md-3 left_col">
-          <div class="left_col scroll-view">
-            <div class="navbar nav_title" style="border: 0;">
-              <a href="{{route('admin.dashboard')}}" class="site_title"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
-            </div>
+            <div class="col-md-3 left_col">
+                <div class="left_col scroll-view">
+                  <div class="navbar nav_title" style="border: 0;">
+                    <a href="{{route('admin.dashboard')}}" class="site_title"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+                  </div>
 
-            <div class="clearfix"></div>
+                  <div class="clearfix"></div>
 
-            <!-- menu profile quick info -->
-            <div class="profile clearfix">
-              <div class="profile_pic">
-                <img src="{{asset('backend/images/img.jpg')}}" alt="..." class="img-circle profile_img">
-              </div>
-              <div class="profile_info">
-                <span>Welcome,</span>
-                <h2>John Doe</h2>
-              </div>
-            </div>
+                  <!-- menu profile quick info -->
+                  <div class="profile clearfix">
+                    <div class="profile_pic">
+                        <img src="{{asset('backend/images/img.jpg')}}" alt="..." class="img-circle profile_img">
+                    </div>
+                    <div class="profile_info">
+                      <span>Welcome,</span>
+                      <h2>{{ Auth::user()->name }}</h2>
+                    </div>
+                  </div>
             <!-- /menu profile quick info -->
 
             <br />
@@ -23,11 +23,16 @@
             <!-- sidebar menu -->
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
-                <ul class="nav side-menu">
+                {{-- <ul class="nav side-menu">
 
-                <li><a href="{{route('user.index')}}"><i class="fa fa-users"></i>Users Management</a></li>
+                    <li><a href="{{route('user.index')}}"><i class="fa fa-users"></i>Users Management</a></li>
 
-
+                    <li><a><i class="fa fa-video"></i> Video Management <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                        <li><a href="">Category</a></li>
+                        <li><a href="">Video</a></li>
+                        </ul>
+                    </li> --}}
 
 
 
@@ -58,6 +63,17 @@
                         </li>
                     </ul>
                   </li>                   -->
+                {{-- </ul> --}}
+
+                <ul class="nav side-menu">
+                    <li><a href="{{route('user.index')}}"><i class="fa fa-users"></i> User Management</a></li>
+
+                    <li class="{{ Request::is('video/*') ? 'active' : '' }}"><a><i class="fa fa-video"></i> Video Management <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu {{ Request::is('video/*') ? 'd-block' : '' }}">
+                            <li class="{{ Request::is('video/category/*') ? 'current-page' : '' }}"><a href="{{route('video.cat.index')}}">Category</a></li>
+                            <li class="{{ Request::is('video/videos/*') ? 'current-page' : '' }}"><a href="">Video</a></li>
+                        </ul>
+                    </li>
                 </ul>
               </div>
 
