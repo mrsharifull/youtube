@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Backend\Admin\AdminController;
 use App\Http\Controllers\Backend\User\UserController;
+use App\Http\Controllers\Backend\PlaylistController;
 use App\Http\Controllers\Backend\VideoCategoryController;
 use App\Http\Controllers\Backend\VideoController;
 
@@ -26,6 +27,15 @@ Route::get('single-video/{id}', [FrontendController::class, 'single'])->name('ho
 
 Route::middleware(['auth', 'userOradmin'])->group(function () {
     Route::group(['as' => 'video.', 'prefix' => 'video'], function () {
+        // Playlist Routes
+        Route::get('playlist/index', [PlaylistController::class, 'index'])->name('playlist.index');
+        Route::get('playlist/create', [PlaylistController::class, 'create'])->name('playlist.create');
+        Route::post('playlist/store', [PlaylistController::class, 'store'])->name('playlist.store');
+        Route::get('playlist/show/{id}', [PlaylistController::class, 'show'])->name('playlist.show');
+        Route::get('playlist/edit/{id}', [PlaylistController::class, 'edit'])->name('playlist.edit');
+        Route::post('playlist/update/{id}', [PlaylistController::class, 'update'])->name('playlist.update');
+        Route::get('playlist/delete/{id}', [PlaylistController::class, 'delete'])->name('playlist.delete');
+        Route::get('playlist/status/{id}', [PlaylistController::class, 'status'])->name('playlist.status');
         // Category Routes
         Route::get('category/index', [VideoCategoryController::class, 'index'])->name('cat.index');
         Route::get('category/create', [VideoCategoryController::class, 'create'])->name('cat.create');

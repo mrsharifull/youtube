@@ -24,6 +24,19 @@
                 <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post" action="{{route('video.store')}}" enctype="multipart/form-data">
                     @csrf
                     <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="playlist_id">Playlist<span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <select name="playlist_id" class="form-control" id="playlist_id" required="required">
+                                <option selected hidden>Select Playlist</option>
+                                @foreach ($playlists as $playlist)
+                                    <option value="{{$playlist->id}}">{{$playlist->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        @include('alerts.feedback', ['field' => 'playlist_id'])
+                    </div>
+                    <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="cat_id">Video Category<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Playlist;
 use App\Models\VideoCategory;
 use App\Models\Video;
 
@@ -22,6 +23,7 @@ class VideoController extends Controller
         return view('backend.video.index',$s);
     }
     public function create(){
+        $s['playlists'] = Playlist::where('status',1)->latest()->get();
         $s['cats'] = VideoCategory::where('status',1)->latest()->get();
         return view('backend.video.create',$s);
     }
@@ -32,6 +34,7 @@ class VideoController extends Controller
             'video' => ['required','file','mimes:mp4'],
             'thumbnail' => ['required','image', 'mimes:jpeg,png,jpg,gif'],
             'description' => ['required', 'string'],
+            'playlist_id' => ['required','exists:playlists,id'],
             'cat_id' => ['required','exists:video_categories,id'],
         ]);
 
@@ -51,6 +54,7 @@ class VideoController extends Controller
         }
         $video->title = $req->title;
         $video->description = $req->description;
+        $video->playlist_id = $req->playlist_id;
         $video->cat_id = $req->cat_id;
         $video->user_id = auth()->user()->id;
         $video->save();
@@ -58,6 +62,7 @@ class VideoController extends Controller
     }
     public function edit($id){
         $s['video'] = Video::findOrFail($id);
+        $s['playlists'] = Playlist::where('status',1)->latest()->get();
         $s['cats'] = VideoCategory::where('status',1)->latest()->get();
         return view('backend.video.edit',$s);
     }
@@ -68,6 +73,7 @@ class VideoController extends Controller
             'video' => ['nullable','file','mimes:mp4'],
             'thumbnail' => ['nullable','image', 'mimes:jpeg,png,jpg,gif'],
             'description' => ['required', 'string'],
+            'playlist_id' => ['required','exists:playlists,id'],
             'cat_id' => ['required','exists:video_categories,id'],
         ]);
 
@@ -89,6 +95,7 @@ class VideoController extends Controller
         }
         $video->title = $req->title;
         $video->description = $req->description;
+        $video->playlist_id = $req->playlist_id;
         $video->cat_id = $req->cat_id;
         $video->user_id = auth()->user()->id;
         $video->update();
