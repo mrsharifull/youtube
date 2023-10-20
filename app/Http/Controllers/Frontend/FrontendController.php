@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Video;
+use App\Models\Playlist;
 
 class FrontendController extends Controller
 {
@@ -15,6 +16,7 @@ class FrontendController extends Controller
     }
     public function single($id){
         $s['video'] = Video::with(['category','user'])->where('id',$id)->first();
+        $s['playlist'] = Playlist::with(['videos','user'])->where('id',$s['video']->playlist_id)->first();
         return view('frontend.single_video_view',$s);
     }
 }

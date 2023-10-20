@@ -10,6 +10,10 @@ use Illuminate\Database\Eloquent\Model;
 class Video extends Model
 {
     use HasFactory;
+    public function playlist()
+    {
+        return $this->belongsTo(Playlist::class, 'playlist_id', 'id');
+    }
     public function category()
     {
         return $this->belongsTo(VideoCategory::class, 'cat_id', 'id');

@@ -34,23 +34,31 @@
                <div class="top-text">
                  <a href="#" class="first-text"> All</a>  <a href="#" class="seecend-text"> From  Md sujon Official </a> <a href="#" class="thard-text">4k Ragulation</a>
              </div>
-                @foreach ($video->category->videos as $cat_video)
-                    @if($video->id == $cat_video->id)
-                        @continue
-                    @endif
-                    <div class="sub-flex-colam">
-                        <a href="{{route('home.single',$cat_video->id)}}" class="videos">
-                                <video controls> <source src="{{asset('storage/'.$cat_video->video)}}"></video>
-                        </a>
-                        <div class="text">
-                            <h2>{{$cat_video->title}}</h2>
-                            <h3>{{$cat_video->user->name}}</h3>
-                            <h4>10M views</h4>
-                        </div>
+                <div class="sub-flex-colam">
+                    <a href="#" class="videos playlist">
+                            <video controls> <source src="{{asset('storage/'.$playlist->videos[0]->video)}}"></video>
+                    </a>
+                    <div class="text">
+                        <a href=""><h2>{{$playlist->name}}</h2></a>
+                        <a href=""><h4>Chanel Name</h4></a>
                     </div>
+                </div>
+                @foreach ($video->category->videos as $cat_video)
+                    @if($video->id != $cat_video->id)
+                        <div class="sub-flex-colam">
+                            <a href="{{route('home.single',$cat_video->id)}}" class="videos">
+                                    <video controls> <source src="{{asset('storage/'.$cat_video->video)}}"></video>
+                            </a>
+                            <div class="text">
+                                <h2>{{$cat_video->title}}</h2>
+                                <h3>{{$cat_video->user->name}}</h3>
+                                <h4>10M views</h4>
+                            </div>
+                        </div>
+                    @endif
                 @endforeach
-                
-                
+
+
              </div>
        </div>
 
