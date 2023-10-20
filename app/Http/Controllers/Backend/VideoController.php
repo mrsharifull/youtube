@@ -12,7 +12,13 @@ use App\Models\Video;
 class VideoController extends Controller
 {
     public function index(){
-        $s['videos'] = Video::all();
+        $s=[];
+        if(auth()->user()->role == 'user'){
+            $s['videos'] = Video::where('user_id',auth()->user()->id)->latest()->get();
+        }else{
+            $s['videos'] = Video::latest()->get();
+        }
+
         return view('backend.video.index',$s);
     }
     public function create(){

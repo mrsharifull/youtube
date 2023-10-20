@@ -47,7 +47,7 @@
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="video">Upload Video<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="file" accept="mp4" id="video" name="video" class="form-control" placeholder="Upload Video">
+                            <input type="file" accept="video/*" id="video" name="video" class="form-control" placeholder="Upload Video">
                             @if($video->video)
                                 <div class="video d-flex align-items-center py-4">
                                     <video class="d-block" src="{{asset('storage/'.$video->video)}}" controls height="150px" width="200px"></video>

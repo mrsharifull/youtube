@@ -42,7 +42,11 @@
     <div class="container body">
       <div class="main_container" >
         <!-- Side bar -->
-        @include('backend.partial.aside')
+        @if (auth()->user()->role == 'admin')
+            @include('backend.partial.aside')
+        @else
+            @include('backend.partial.user_aside')
+        @endif
         <!-- Side bar -->
 
         <!-- top navigation -->

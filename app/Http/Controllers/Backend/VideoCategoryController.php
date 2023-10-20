@@ -10,7 +10,11 @@ use App\Models\VideoCategory;
 class VideoCategoryController extends Controller
 {
     public function index(){
-        $s['cats'] = VideoCategory::all();
+        if(auth()->user()->role == 'user'){
+            $s['cats'] = VideoCategory::where('user_id',auth()->user()->id)->latest()->get();
+        }else{
+            $s['cats'] = VideoCategory::latest()->get();
+        }
         return view('backend.video.category.index',$s);
     }
     public function create(){
@@ -27,6 +31,7 @@ class VideoCategoryController extends Controller
         }
         $cat = new VideoCategory();
         $cat->name = $req->name;
+        $cat->user_id = auth()->user()->id;
         $cat->save();
         return redirect()->route('video.cat.index')->withStatus(__("Category $cat->name Created Successfully"));
     }
@@ -45,6 +50,7 @@ class VideoCategoryController extends Controller
         }
         $cat = VideoCategory::findOrFail($id);
         $cat->name = $req->name;
+        $cat->user_id = auth()->user()->id;
         $cat->update();
         return redirect()->route('video.cat.index')->withStatus(__("Category $cat->name Updated Successfully"));
     }

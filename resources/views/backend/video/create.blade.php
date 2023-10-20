@@ -48,7 +48,7 @@
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="video">Upload Video<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="file" accept="mp4" id="video" name="video" required="required" class="form-control" placeholder="Upload Video">
+                            <input type="file" accept="video/*" id="video" name="video" required="required" class="form-control" placeholder="Upload Video">
                         </div>
                         @include('alerts.feedback', ['field' => 'video'])
                     </div>

@@ -24,19 +24,7 @@ Auth::routes();
 Route::get('/', [FrontendController::class, 'index'])->name('home');
 Route::get('single-video/{id}', [FrontendController::class, 'single'])->name('home.single');
 
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('admin/dashboard',[AdminController::class, 'admin'])->name('admin.dashboard');
-
-    // User Management Routes
-    Route::group(['as' => 'user.', 'prefix' => 'user'], function () {
-        Route::get('index', [AdminController::class, 'index'])->name('index');
-        Route::get('create', [AdminController::class, 'create'])->name('create');
-        Route::post('store', [AdminController::class, 'store'])->name('store');
-        Route::get('show/{id}', [AdminController::class, 'show'])->name('show');
-        Route::get('edit/{id}', [AdminController::class, 'edit'])->name('edit');
-        Route::post('update/{id}', [AdminController::class, 'update'])->name('update');
-        Route::get('delete/{id}', [AdminController::class, 'delete'])->name('delete');
-    });
+Route::middleware(['auth', 'userOradmin'])->group(function () {
     Route::group(['as' => 'video.', 'prefix' => 'video'], function () {
         // Category Routes
         Route::get('category/index', [VideoCategoryController::class, 'index'])->name('cat.index');
@@ -56,6 +44,21 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::post('data/update/{id}', [VideoController::class, 'update'])->name('update');
         Route::get('data/delete/{id}', [VideoController::class, 'delete'])->name('delete');
         Route::get('data/status/{id}', [VideoController::class, 'status'])->name('status');
+    });
+});
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('admin/dashboard',[AdminController::class, 'admin'])->name('admin.dashboard');
+
+    // User Management Routes
+    Route::group(['as' => 'user.', 'prefix' => 'user'], function () {
+        Route::get('index', [AdminController::class, 'index'])->name('index');
+        Route::get('create', [AdminController::class, 'create'])->name('create');
+        Route::post('store', [AdminController::class, 'store'])->name('store');
+        Route::get('show/{id}', [AdminController::class, 'show'])->name('show');
+        Route::get('edit/{id}', [AdminController::class, 'edit'])->name('edit');
+        Route::post('update/{id}', [AdminController::class, 'update'])->name('update');
+        Route::get('delete/{id}', [AdminController::class, 'delete'])->name('delete');
     });
 });
 

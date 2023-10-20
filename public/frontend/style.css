@@ -253,7 +253,7 @@ img{
     border-radius: 5px;
     position: relative;
 }
-.flex-column-2-content-1 .thumbnail::after{
+/* .flex-column-2-content-1 .thumbnail::after{
     content: '\f16a';
     font-family: 'FontAwesome';
     display: block;
@@ -263,7 +263,7 @@ img{
     transform: translate(-50%,-50%);
     font-size: 60px;
     color:red;
-}
+} */
 .flex-column-2-content-1 img{
     border-radius: 5px;
 }

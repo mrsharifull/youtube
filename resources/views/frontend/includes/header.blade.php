@@ -32,7 +32,7 @@
                         <span class="span">9+</span>
                         @if(auth()->user() == false)
                             <a class="login" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            <a class="registration" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            <a class="registration" href="{{ route('login').'#signup' }}">{{ __('Register') }}</a>
 
                         @else
                             @if(auth()->user()->role == 'admin')
