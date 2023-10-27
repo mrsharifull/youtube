@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Playlist;
 use App\Models\VideoCategory;
 use App\Models\Video;
-use Storage;
+use Illuminate\Support\Facades\Storage;
 
 class VideoController extends Controller
 {
@@ -45,17 +45,39 @@ class VideoController extends Controller
         $video = new Video();
         if ($req->hasFile('video')) {
             $video_up = $req->file('video');
-            $videoFileName = uniqid() . '.' . $video_up->getClientOriginalExtension(); // Use $video_up, not $video
-            Storage::disk('sftp')->put($videoFileName, file_get_contents($video_up)); // Use $video_up, not $video
-            // Assuming you want to store the file path in a variable, you can use:
-            $videoPath = $videoFileName;
+            $videoFileName = 'video_'.uniqid(3) . '.' . $video_up->getClientOriginalExtension();
+            // Storage::disk('remote-sftp')->put($videoFileName, file_get_contents($video_up), 'public');
+            $filesystem = Storage::disk('remote-sftp');
+            $filesystem->put('youtube/video/'.$videoFileName, file_get_contents($video_up));
+            $videoPath = 'youtube/video/'.$videoFileName;
             $video->video = $videoPath;
         }
+        // if ($req->hasFile('video')) {
+        //     try {
+        //         $video_up = $req->file('video');
+        //         $videoFileName = 'video_'.uniqid(3) . '.' . $video_up->getClientOriginalExtension();
+        //         $video = Storage::disk('sftp')->put($videoFileName, file_get_contents($video_up));
+
+        //         if ($video) {
+        //             // File upload successful
+        //             $videoPath = $videoFileName;
+        //             // Do whatever you need with $videoPath
+        //         } else {
+        //             // File upload failed
+        //             dd("File upload failed");
+        //         }
+        //     } catch (\Exception $e) {
+        //         // Handle the exception here, e.g., log the error message
+        //         dd($e->getMessage());
+        //     }
+        // }
         if ($req->hasFile('thumbnail')) {
             $thumbnail = $req->file('thumbnail');
-            $thumbnailFileName = uniqid() . '.' . $thumbnail->getClientOriginalExtension();
-            Storage::disk('sftp')->put($thumbnailFileName, file_get_contents($thumbnail));
-            $thumbnailPath = $thumbnailFileName;
+            $thumbnailFileName = 'thumbnail_'.uniqid(3). '.' . $thumbnail->getClientOriginalExtension();
+            // Storage::disk('remote-sftp')->put($thumbnailFileName, file_get_contents($thumbnail), 'public');
+            $filesystem = Storage::disk('remote-sftp');
+            $filesystem->put('youtube/thumbnail/'.$thumbnailFileName, file_get_contents($thumbnail));
+            $thumbnailPath = 'youtube/thumbnail/'.$thumbnailFileName;
             $video->thumbnail = $thumbnailPath;
         }
         $video->title = $req->title;
