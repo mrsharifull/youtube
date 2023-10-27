@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Playlist;
 use App\Models\VideoCategory;
 use App\Models\Video;
+use Storage;
 
 class VideoController extends Controller
 {
@@ -44,13 +45,18 @@ class VideoController extends Controller
         $video = new Video();
         if ($req->hasFile('video')) {
             $video_up = $req->file('video');
-            $path = $video_up->store('videos/'.auth()->user()->id.'/video', 'public');
-            $video->video = $path;
+            $videoFileName = uniqid() . '.' . $video_up->getClientOriginalExtension(); // Use $video_up, not $video
+            Storage::disk('sftp')->put($videoFileName, file_get_contents($video_up)); // Use $video_up, not $video
+            // Assuming you want to store the file path in a variable, you can use:
+            $videoPath = $videoFileName;
+            $video->video = $videoPath;
         }
         if ($req->hasFile('thumbnail')) {
             $thumbnail = $req->file('thumbnail');
-            $path = $thumbnail->store('videos/'.auth()->user()->id.'/thumbnail', 'public');
-            $video->thumbnail = $path;
+            $thumbnailFileName = uniqid() . '.' . $thumbnail->getClientOriginalExtension();
+            Storage::disk('sftp')->put($thumbnailFileName, file_get_contents($thumbnail));
+            $thumbnailPath = $thumbnailFileName;
+            $video->thumbnail = $thumbnailPath;
         }
         $video->title = $req->title;
         $video->description = $req->description;

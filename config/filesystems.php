@@ -43,6 +43,14 @@ return [
         //     'visibility' => 'public',
         //     'throw' => false,
         // ],
+        'sftp' => [
+            'driver' => 'sftp',
+            'host' => env('SFTP_HOST'),
+            'port' => 7669, // SFTP default port
+            'username' => env('SFTP_USERNAME'),
+            'password' => env('SFTP_PASSWORD'),
+            'root' => env('SFTP_ROOT'),
+        ],
         'public' => [
             'driver' => 'local',
             'root' => public_path('storage'),
