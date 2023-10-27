@@ -73,7 +73,7 @@ return [
         // ],
         'remote-sftp' => [
         'driver' => 'sftp',
-        'host' => 'sftp://scontent.ansbd.net',
+        'host' => 'scontent.ansbd.net',
         'username' => 'root',
         'password' => 'N@ziR.69#',
         'visibility' => 'public',
@@ -89,7 +89,7 @@ return [
         // ],
         'permPublic' => 0755,
         'port' => 7669,
-        'root' => '/',
+        'root' => '/var/www/html',
         'timeout' => 1800,
         // 'directoryPerm'=> 0755
     ],
