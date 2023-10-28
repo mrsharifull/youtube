@@ -18,24 +18,29 @@ class UploadThumbnailToSFTP implements ShouldQueue
     /**
      * Create a new job instance.
      */
-    protected $fileName;
-    protected $temporaryFilePath;
+    protected $temporaryThumbnail;
     protected $existingFilePath;
 
-    public function __construct($fileName, $temporaryFilePath, $existingFilePath= false)
+    public function __construct($temporaryThumbnail, $existingFilePath= false)
     {
-        $this->fileName = $fileName;
-        $this->temporaryFilePath = $temporaryFilePath;
+        $this->temporaryThumbnail = $temporaryThumbnail;
         $this->existingFilePath = $existingFilePath;
     }
 
     public function handle()
     {
         $filesystem = Storage::disk('remote-sftp');
-        $filesystem->put("thumbnail/" . $this->fileName, Storage::disk('public')->path($this->temporaryFilePath), 'public');
+        // $filesystem->putFile("thumbnail/", Storage::disk('public')->path($this->temporaryThumbnail));
+        $destinationDirectory = "thumbnail/";
+
+        $localPath = Storage::disk('public')->path($this->temporaryThumbnail);
+        $originalFilename = pathinfo($localPath, PATHINFO_BASENAME);
+        $remotePath = $destinationDirectory . $originalFilename;
+        $filesystem->put($remotePath, file_get_contents($localPath));
+
         if($this->existingFilePath != false){
             $filesystem->delete($this->existingFilePath);
         }
-        Storage::disk('public')->delete($this->temporaryFilePath);
+        Storage::disk('public')->delete($this->temporaryThumbnail);
     }
 }

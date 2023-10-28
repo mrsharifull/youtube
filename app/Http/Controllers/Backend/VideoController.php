@@ -12,9 +12,12 @@ use App\Models\Video;
 use Illuminate\Support\Facades\Storage;
 use App\Jobs\UploadVideoToSFTP;
 use App\Jobs\UploadThumbnailToSFTP;
+use App\Http\Traits\sftpVideo;
 
 class VideoController extends Controller
 {
+    use sftpVideo;
+
     public function index(){
         $s=[];
         if(auth()->user()->role == 'user'){
@@ -44,20 +47,21 @@ class VideoController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
+        $s = [];
         $video = new Video();
         if ($req->hasFile('video')) {
             $video_up = $req->file('video');
-            $fileName = 'video_' . uniqid(3) . '.' . $video_up->getClientOriginalExtension();
-            $temporaryFilePath = $video_up->storeAs('video',$fileName,'public'); // Store in the 'public' disk
-            UploadVideoToSFTP::dispatch($fileName, $temporaryFilePath);
-            $video->video = 'video/'.$fileName;
+            // $s['videoPath'] = $video_up->store('video','public');
+            $customName = 'video_'. uniqid() . $video_up->getClientOriginalName();
+            $s['videoPath']= $video_up->storeAs('video', $customName,'public');
+            $video->video = $s['videoPath'] ;
         }
         if ($req->hasFile('thumbnail')) {
             $thumbnail = $req->file('thumbnail');
-            $fileName = 'thumbnail_'.uniqid(3). '.' . $thumbnail->getClientOriginalExtension();
-            $temporaryFilePath = $thumbnail->storeAs('thumbnail',$fileName,'public');
-            UploadThumbnailToSFTP::dispatch($fileName,$temporaryFilePath);
-            $video->thumbnail = 'thumbnail/'.$fileName;
+            // $s['thumbnailPath'] = $thumbnail->store('thumbnail','public');
+            $customName = 'thumbnail' . uniqid() . $thumbnail->getClientOriginalName();
+            $s['thumbnailPath']= $thumbnail->storeAs('thumbnail', $customName,'public');
+            $video->thumbnail = $s['thumbnailPath'];
         }
         $video->title = $req->title;
         $video->description = $req->description;
@@ -65,6 +69,9 @@ class VideoController extends Controller
         $video->cat_id = $req->cat_id;
         $video->user_id = auth()->user()->id;
         $video->save();
+
+        $this->upload_file_sftp($s);
+
         return redirect()->route('video.index')->withStatus(__("Video $video->title Created Successfully"));
     }
     public function edit($id){
@@ -103,16 +110,15 @@ class VideoController extends Controller
         if ($req->hasFile('video')) {
             $video_up = $req->file('video');
             $fileName = 'video_' . uniqid(3) . '.' . $video_up->getClientOriginalExtension();
-            $temporaryFilePath = $video_up->storeAs('video',$fileName,'public'); // Store in the 'public' disk
-            UploadVideoToSFTP::dispatch($fileName, $temporaryFilePath, $video->video);
-            $video->video = 'video/'.$fileName;
+            $temporaryFilePath = $video_up->store('video','public'); // Store in the 'public' disk
+            $video->video = $temporaryFilePath;
+            UploadVideoToSFTP::dispatch($temporaryFilePath, $video->video);
         }
         if ($req->hasFile('thumbnail')) {
             $thumbnail = $req->file('thumbnail');
-            $fileName = 'thumbnail_'.uniqid(3). '.' . $thumbnail->getClientOriginalExtension();
-            $temporaryFilePath = $thumbnail->storeAs('thumbnail',$fileName,'public');
-            UploadThumbnailToSFTP::dispatch($fileName,$temporaryFilePath, $video->thumbnail);
-            $video->thumbnail = 'thumbnail/'.$fileName;
+            $temporaryFilePath = $thumbnail->store('thumbnail','public');
+            $video->thumbnail = $temporaryFilePath;
+            UploadThumbnailToSFTP::dispatch($temporaryFilePath, $video->thumbnail);
         }
         $video->title = $req->title;
         $video->description = $req->description;
