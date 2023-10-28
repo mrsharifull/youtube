@@ -52,46 +52,12 @@ class VideoController extends Controller
             UploadVideoToSFTP::dispatch($fileName, $temporaryFilePath);
             $video->video = 'video/'.$fileName;
         }
-        // if ($req->hasFile('video')) {
-        //     $video_up = $req->file('video');
-        //     $fileName = 'video_' . uniqid(3) . '.' . $video_up->getClientOriginalExtension();
-        //     $filePath = $video_up->store('youtube'); // Store the file in a temporary location
-        // }
-        // if ($req->hasFile('thumbnail')) {
-        //     $thumbnail = $req->file('thumbnail');
-        //     $fileName = 'thumbnail_' . uniqid(3) . '.' . $thumbnail->getClientOriginalExtension();
-        //     $filePath = $thumbnail->store('youtube'); // Store the file in a temporary location
-        // }
-        // if ($req->hasFile('video')) {
-        //     try {
-        //         $video_up = $req->file('video');
-        //         $videoFileName = 'video_'.uniqid(3) . '.' . $video_up->getClientOriginalExtension();
-        //         $video = Storage::disk('sftp')->put($videoFileName, file_get_contents($video_up));
-
-        //         if ($video) {
-        //             // File upload successful
-        //             $videoPath = $videoFileName;
-        //             // Do whatever you need with $videoPath
-        //         } else {
-        //             // File upload failed
-        //             dd("File upload failed");
-        //         }
-        //     } catch (\Exception $e) {
-        //         // Handle the exception here, e.g., log the error message
-        //         dd($e->getMessage());
-        //     }
-        // }
         if ($req->hasFile('thumbnail')) {
             $thumbnail = $req->file('thumbnail');
             $fileName = 'thumbnail_'.uniqid(3). '.' . $thumbnail->getClientOriginalExtension();
             $temporaryFilePath = $thumbnail->storeAs('thumbnail',$fileName,'public');
             UploadThumbnailToSFTP::dispatch($fileName,$temporaryFilePath);
             $video->thumbnail = 'thumbnail/'.$fileName;
-            // // Storage::disk('remote-sftp')->put($thumbnailFileName, file_get_contents($thumbnail), 'public');
-            // $filesystem = Storage::disk('remote-sftp');
-            // $filesystem->put('thumbnail/'.$thumbnailFileName, file_get_contents($thumbnail));
-            // $thumbnailPath = 'thumbnail/'.$thumbnailFileName;
-
         }
         $video->title = $req->title;
         $video->description = $req->description;
@@ -122,17 +88,31 @@ class VideoController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
         $video = Video::findOrFail($id);
+        // if ($req->hasFile('video')) {
+        //     $video_up = $req->file('video');
+        //     $path = $video_up->store('videos/'.auth()->user()->id.'/thumbnail', 'public');
+        //     $this->fileDelete($video->video);
+        //     $video->video = $path;
+        // }
+        // if ($req->hasFile('thumbnail')) {
+        //     $thumbnail = $req->file('thumbnail');
+        //     $path = $thumbnail->store('videos/'.auth()->user()->id.'/thumbnail', 'public');
+        //     $this->fileDelete($video->thumbnail);
+        //     $video->thumbnail = $path;
+        // }
         if ($req->hasFile('video')) {
             $video_up = $req->file('video');
-            $path = $video_up->store('videos/'.auth()->user()->id.'/thumbnail', 'public');
-            $this->fileDelete($video->video);
-            $video->video = $path;
+            $fileName = 'video_' . uniqid(3) . '.' . $video_up->getClientOriginalExtension();
+            $temporaryFilePath = $video_up->storeAs('video',$fileName,'public'); // Store in the 'public' disk
+            UploadVideoToSFTP::dispatch($fileName, $temporaryFilePath, $video->video);
+            $video->video = 'video/'.$fileName;
         }
         if ($req->hasFile('thumbnail')) {
             $thumbnail = $req->file('thumbnail');
-            $path = $thumbnail->store('videos/'.auth()->user()->id.'/thumbnail', 'public');
-            $this->fileDelete($video->thumbnail);
-            $video->thumbnail = $path;
+            $fileName = 'thumbnail_'.uniqid(3). '.' . $thumbnail->getClientOriginalExtension();
+            $temporaryFilePath = $thumbnail->storeAs('thumbnail',$fileName,'public');
+            UploadThumbnailToSFTP::dispatch($fileName,$temporaryFilePath, $video->thumbnail);
+            $video->thumbnail = 'thumbnail/'.$fileName;
         }
         $video->title = $req->title;
         $video->description = $req->description;
@@ -144,8 +124,9 @@ class VideoController extends Controller
     }
     public function delete($id){
         $video = Video::findOrFail($id);
-        $this->fileDelete($video->video);
-        $this->fileDelete($video->thumbnail);
+        $filesystem = Storage::disk('remote-sftp');
+        $filesystem->delete($video->video);
+        $filesystem->delete($video->thumbnail);
         $video->delete();
         return redirect()->route('video.index')->withStatus(__("Category $video->title Deleted Successfully"));
     }

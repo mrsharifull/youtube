@@ -28,8 +28,10 @@
                         </label>
                         <div class="col-md-6 col-sm-6 ">
                             <select name="playlist_id" class="form-control" id="playlist_id" required="required">
+
                                 @foreach ($playlists as $playlist)
-                                    <option value="{{$playlist->id}}"{{($video->playlistegory->id == $playlist->id) ? 'selected' : ''}}>{{$playlist->name}}</option>
+
+                                    <option value="{{$playlist->id}}" {{($video->playlist->id == $playlist->id) ? 'selected' : ''}}>{{$playlist->name}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -62,7 +64,9 @@
                             <input type="file" accept="video/*" id="video" name="video" class="form-control" placeholder="Upload Video">
                             @if($video->video)
                                 <div class="video d-flex align-items-center py-4">
-                                    <video class="d-block" src="{{asset('storage/'.$video->video)}}" controls height="150px" width="200px"></video>
+                                    <video class="d-block" controls height="150" width="200">
+                                        <source src="{{ sftpLink($video->video) }}" type="video/mp4">
+                                    </video>
                                 </div>
                             @endif
                         </div>
@@ -75,8 +79,9 @@
                         <div class="col-md-6 col-sm-6 ">
                             <input type="file" accept="image/*" id="thumbnail" name="thumbnail" class="form-control" placeholder="Upload thumbnail image">
                             @if($video->thumbnail)
+
                                 <div class="image d-flex align-items-center py-4">
-                                    <img src="{{asset('storage/'.$video->thumbnail)}}" height="150px" width="200px" alt="{{$video->title}}">
+                                    <img src="{{sftpLink($video->thumbnail)}}" height="150px" width="200px" alt="{{$video->title}}">
                                 </div>
                             @endif
                         </div>

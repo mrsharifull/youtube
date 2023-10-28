@@ -20,21 +20,22 @@ class UploadVideoToSFTP implements ShouldQueue
      */
     protected $fileName;
     protected $temporaryFilePath;
+    protected $existingFilePath;
 
-    public function __construct($fileName, $temporaryFilePath)
+    public function __construct($fileName, $temporaryFilePath, $existingFilePath= false)
     {
         $this->fileName = $fileName;
         $this->temporaryFilePath = $temporaryFilePath;
+        $this->existingFilePath = $existingFilePath;
     }
 
     public function handle()
     {
-        // $fileContent = Storage::disk('public')->get($this->temporaryFilePath);
-        // Upload the file to the SFTP server
         $filesystem = Storage::disk('remote-sftp');
         $filesystem->put("video/" . $this->fileName, Storage::disk('public')->path($this->temporaryFilePath), 'public');
-
-        // Delete the temporary file
+        if($this->existingFilePath != false){
+            $filesystem->delete($this->existingFilePath);
+        }
         Storage::disk('public')->delete($this->temporaryFilePath);
     }
 }
