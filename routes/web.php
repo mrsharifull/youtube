@@ -55,6 +55,12 @@ Route::middleware(['auth', 'userOradmin'])->group(function () {
         Route::get('data/delete/{id}', [VideoController::class, 'delete'])->name('delete');
         Route::get('data/status/{id}', [VideoController::class, 'status'])->name('status');
     });
+    Route::group(['as' => 'user.', 'prefix' => 'user'], function () {
+        Route::get('profile/{id}', [AdminController::class, 'profile'])->name('profile');
+        Route::get('show/{id}', [AdminController::class, 'show'])->name('show');
+        Route::get('edit/{id}', [AdminController::class, 'edit'])->name('edit');
+        Route::post('update/{id}', [AdminController::class, 'update'])->name('update');
+    });
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {
@@ -65,9 +71,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('index', [AdminController::class, 'index'])->name('index');
         Route::get('create', [AdminController::class, 'create'])->name('create');
         Route::post('store', [AdminController::class, 'store'])->name('store');
-        Route::get('show/{id}', [AdminController::class, 'show'])->name('show');
-        Route::get('edit/{id}', [AdminController::class, 'edit'])->name('edit');
-        Route::post('update/{id}', [AdminController::class, 'update'])->name('update');
         Route::get('delete/{id}', [AdminController::class, 'delete'])->name('delete');
     });
 });

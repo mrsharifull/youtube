@@ -20,6 +20,10 @@ class AdminController extends Controller
         $s['users'] = User::all();
         return view('backend.admin.user.index',$s);
     }
+    public function profile($id){
+        $s['data'] = User::with(['videos','videoCats','playlists'])->where('id',$id)->first();
+        return view('backend.admin.user.profile',$s);
+    }
     public function create(){
         return view('backend.admin.user.create');
     }
@@ -30,11 +34,15 @@ class AdminController extends Controller
             'image' => ['required','image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'role' => ['nullable'],
+            'channel_name' => ['nullable','string', 'max:255'],
             'password' => ['required', 'string', 'min:8'],
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
+        }
+        if(empty(auth()->user()->channel_name)){
+            return redirect()->route('user.edit',auth()->user()->id)->withStatus(__("Please create channel name before uploading video"));
         }
         $user = new User();
         if ($req->hasFile('image')) {
@@ -43,6 +51,7 @@ class AdminController extends Controller
             $user->image = $path;
         }
         $user->name = $req->name;
+        $user->channel_name = $req->channel_name;
         $user->email = $req->email;
         $user->password = Hash::make($req->password);
         $user->role = $req->role;
@@ -65,6 +74,7 @@ class AdminController extends Controller
             ],
             'role' => ['nullable'],
             'password' => ['nullable'],
+            'channel_name' => ['required','string', 'max:255'],
         ]);
 
         if ($validator->fails()) {
@@ -78,11 +88,14 @@ class AdminController extends Controller
             $user->image = $path;
         }
         $user->name = $req->name;
+        $user->channel_name = $req->channel_name;
         $user->email = $req->email;
-        $user->password = Hash::make($req->password);
+        if(!empty($req->password)){
+            $user->password = Hash::make($req->password);
+        }
         $user->role = $req->role;
         $user->update();
-        return redirect()->route('user.index')->withStatus(__($user->name.' Updated Successfully'));
+        return redirect()->back()->withStatus(__($user->name.' Updated Successfully'));
     }
     public function delete($id){
         $user = User::findOrFail($id);

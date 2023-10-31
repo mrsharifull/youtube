@@ -42,7 +42,7 @@
                 <tr>
                     <td>{{$video->title}}</td>
                     <td>
-                        <video src="{{ sftpLink($video->video) }}" height="60px" width="60px"></video>
+                        <video controls height="60px" width="60px"> <source src="{{ sftpLink($video->video) }}"></video>
                     </td>
                     <td>
                        <img src="{{ sftpLink($video->thumbnail)}}" height="60px" width="60px" alt="{{$video->title}}">

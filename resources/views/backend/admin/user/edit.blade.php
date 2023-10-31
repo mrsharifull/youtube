@@ -1,5 +1,5 @@
 @extends('backend.layout.master')
-@section('title','Create User')
+@section('title','Edit Profile')
 @push('css_link')
     <link href="{{asset('backend/vendors/google-code-prettify/bin/prettify.min.css')}}" rel="stylesheet">
     <link href="{{asset('backend/vendors/select2/dist/css/select2.min.css')}}" rel="stylesheet">
@@ -11,9 +11,9 @@
     <div class="col-md-12 col-sm-12 ">
         <div class="x_panel">
             <div class="x_title">
-                <h2>Edit User</h2>
+                <h2>Edit Profile</h2>
                 <ul class="nav navbar-right panel_toolbox">
-                    <a href="{{route('user.index')}}" class="btn btn-outline-info btn-sm">Back</a>
+                    <a href="{{url()->previous()}}" class="btn btn-outline-info btn-sm">Back</a>
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
                 </ul>
@@ -30,6 +30,14 @@
                             <input type="text" id="name" value="{{$user->name}}" name="name" required="required" class="form-control" placeholder="Enter name">
                         </div>
                         @include('alerts.feedback', ['field' => 'name'])
+                    </div>
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="channel_name">Channel Name <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="text" id="channel_name" value="{{$user->channel_name}}" name="channel_name" required="required" class="form-control" placeholder="Enter channel name">
+                        </div>
+                        @include('alerts.feedback', ['field' => 'channel_name'])
                     </div>
                     <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="image">Profile Photo<span class="required">*</span>

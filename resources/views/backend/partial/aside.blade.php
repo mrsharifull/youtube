@@ -66,6 +66,7 @@
                 {{-- </ul> --}}
 
                 <ul class="nav side-menu">
+                    <li><a href="{{route('user.profile',auth()->user()->id)}}"><i class="fa fa-user"></i> Profile</a></li>
                     <li><a href="{{route('user.index')}}"><i class="fa fa-users"></i> User Management</a></li>
 
                     <li class="{{ Request::is('video/*') ? 'active' : '' }}"><a><i class="fa fa-video-camera"></i> Video Management <span class="fa fa-chevron-down"></span></a>

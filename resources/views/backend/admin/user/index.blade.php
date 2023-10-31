@@ -28,7 +28,8 @@
         <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
           <thead>
             <tr>
-              <th>Name</th>
+              <th>Author Name</th>
+              <th>Channel Name</th>
               <th>Photo</th>
               <th>Role</th>
               <th>Email</th>
@@ -41,6 +42,7 @@
             @foreach ($users as $user)
                 <tr>
                     <td>{{$user->name}}</td>
+                    <td>{{$user->channel_name ?? "N/A"}}</td>
                     <td>
                         <img class="border p-1 rounded"  src="{{ asset('storage/'.$user->image)}}" height="60px" width="60px" alt="{{$user->name}}">
                     </td>
@@ -50,6 +52,7 @@
                     <td>{{($user->updated_at == $user->created_at) ? "N/A" : date('d-m-Y', strtotime($user->updated_at))}}</td>
                     <td>
                         <a href="javascript:void(0)" class="btn btn-sm btn-dark data-show" data-id="{{$user->id}}"><i class="fa fa-eye"></i></a>
+                        <a href="{{route('user.profile',$user->id)}}" class="btn btn-sm btn-primary"><i class="fa fa-user"></i></a>
                         <a href="{{route('user.edit',$user->id)}}" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
                         <a href="{{route('user.delete',$user->id)}}" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
                     </td>
@@ -61,7 +64,7 @@
       </div>
         </div>
         </div>
-        
+
         </div>
     </div>
 </div>
@@ -144,7 +147,7 @@
                             <th>Photo</th>
                             <th>:</th>
                             <td>
-                                <img src='${image}' height="60px" width="60px" class="border p-1 rounded" alt="{{$user->name}}">    
+                                <img src='${image}' height="60px" width="60px" class="border p-1 rounded" alt="{{$user->name}}">
                             </td>
                         </tr>
                         <tr>

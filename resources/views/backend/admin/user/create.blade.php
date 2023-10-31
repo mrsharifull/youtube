@@ -32,6 +32,14 @@
                         @include('alerts.feedback', ['field' => 'name'])
                     </div>
                     <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="channel_name">Channel Name
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="text" id="channel_name" name="channel_name" class="form-control" placeholder="Enter channel name">
+                        </div>
+                        @include('alerts.feedback', ['field' => 'channel_name'])
+                    </div>
+                    <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="image">Profile Photo<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
