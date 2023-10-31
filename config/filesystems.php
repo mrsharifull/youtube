@@ -43,13 +43,13 @@ return [
         ],
         'remote-sftp' => [
             'driver' => 'sftp',
-            'host' => 'scontent.ansbd.net',
-            'username' => 'root',
-            'password' => 'N@ziR.69#',
+            'host' => env('SFTP_HOST'),
+            'username' => env('SFTP_USERNAME'),
+            'password' => env('SFTP_PASSWORD'),
             'visibility' => 'public',
             'permPublic' => 0755,
-            'port' => 7669,
-            'root' => '/var/www/html',
+            'port' => (int) env('SFTP_PORT'),
+            'root' => env('SFTP_ROOT'),
             'timeout' => 1800,
         ],
 
