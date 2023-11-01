@@ -39,15 +39,16 @@ class VideoController extends Controller
             'playlist_id' => ['required','exists:playlists,id'],
             'cat_id' => ['required','exists:video_categories,id'],
         ]);
-
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
+        }
+        if(empty(auth()->user()->channel_name)){
+            return redirect()->route('user.edit',auth()->user()->id)->withStatus(__("Please create channel name before uploading video"));
         }
         $video = new Video();
         if($req->hasFile('video')) {
             $file=$req->file('video');
             $filenamewithextension = $file->getClientOriginalName();
-            // $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
             $extension = $file->getClientOriginalExtension();
             $filenametostore = 'video_'.uniqid().'.'.$extension;
             $directory = 'video';
@@ -58,7 +59,6 @@ class VideoController extends Controller
         if($req->hasFile('thumbnail')) {
             $thumbnail = $req->file('thumbnail');
             $filenamewithextension = $thumbnail->getClientOriginalName();
-            // $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
             $extension = $thumbnail->getClientOriginalExtension();
             $filenametostore = 'thumbnail_'.uniqid().'.'.$extension;
             $directory = 'thumbnail';
@@ -98,7 +98,6 @@ class VideoController extends Controller
         if($req->hasFile('video')) {
             $file=$req->file('video');
             $filenamewithextension = $file->getClientOriginalName();
-            // $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
             $extension = $file->getClientOriginalExtension();
             $filenametostore = 'video_'.uniqid(3).'.'.$extension;
             $directory = 'video';
@@ -110,7 +109,6 @@ class VideoController extends Controller
         if($req->hasFile('thumbnail')) {
             $thumbnail = $req->file('thumbnail');
             $filenamewithextension = $thumbnail->getClientOriginalName();
-            // $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
             $extension = $thumbnail->getClientOriginalExtension();
             $filenametostore = 'thumbnail_'.uniqid(3).'.'.$extension;
             $directory = 'thumbnail';
