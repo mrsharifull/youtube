@@ -43,6 +43,9 @@ class VideoController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
+        if(empty(auth()->user()->channel_name)){
+            return redirect()->route('user.edit',auth()->user()->id)->withStatus(__("Please create channel name before uploading video"));
+        }
         $video = new Video();
         if($req->hasFile('video')) {
             $file=$req->file('video');

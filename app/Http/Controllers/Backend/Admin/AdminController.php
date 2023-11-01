@@ -41,9 +41,6 @@ class AdminController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-        if(empty(auth()->user()->channel_name)){
-            return redirect()->route('user.edit',auth()->user()->id)->withStatus(__("Please create channel name before uploading video"));
-        }
         $user = new User();
         if ($req->hasFile('image')) {
             $image = $req->file('image');

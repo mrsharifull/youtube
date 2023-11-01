@@ -36,7 +36,7 @@
              </div>
                 <div class="sub-flex-colam">
                     <a href="#" class="videos playlist">
-                            <img src="{{sftpLink($playlist->videos[0]->video)}}" alt="{{$video->title}}" height="200px" width="100%" >
+                            <img src="{{sftpLink($playlist->videos[0]->thumbnail)}}" alt="{{$video->title}}" height="200px" width="100%" >
                     </a>
                     <div class="text">
                         <a href=""><h2>{{$playlist->name}}</h2></a>
