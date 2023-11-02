@@ -48,7 +48,7 @@ return [
             'password' => env('SFTP_PASSWORD'),
             'visibility' => 'public',
             'permPublic' => 0755,
-            'port' => (int) env('SFTP_PORT'),
+            'port' => (int) env('SFTP_PORT',22),
             'root' => env('SFTP_ROOT'),
             'timeout' => 1800,
         ],

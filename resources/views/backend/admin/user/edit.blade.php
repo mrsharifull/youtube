@@ -9,6 +9,7 @@
 @section('content')
 <div class="row">
     <div class="col-md-12 col-sm-12 ">
+        @include('alerts.message')
         <div class="x_panel">
             <div class="x_title">
                 <h2>Edit Profile</h2>

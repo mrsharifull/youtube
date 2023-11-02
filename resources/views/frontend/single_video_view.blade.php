@@ -47,7 +47,7 @@
                     @if($video->id != $cat_video->id)
                         <div class="sub-flex-colam">
                             <a href="{{route('home.single',$cat_video->id)}}" class="videos">
-                                <img src="{{sftpLink($cat_video->video)}}" alt="{{$video->title}}" height="200px" width="100%" >
+                                <img src="{{sftpLink($cat_video->thumbnail)}}" alt="{{$video->title}}" height="200px" width="100%" >
                             </a>
                             <div class="text">
                                 <h2>{{$cat_video->title}}</h2>
