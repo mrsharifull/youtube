@@ -5,7 +5,7 @@
     <div class="container">
        <div class="main-colam">
              <div class="flex-colam1">
-                  <video controls autoplay loop> <source src="{{ sftpLink($video->video) }}"></video>
+                  <video controls autoplay loop> <source src="{{ videoSftpLink($video->video) }}"></video>
                   <h1 style="margin-top: 15px;">{{$video->title}}</h1>
                   <div class="flex-1-sub-colam">
                       <div class="colam-1">
@@ -36,7 +36,7 @@
              </div>
                 <div class="sub-flex-colam">
                     <a href="#" class="videos playlist">
-                            <img src="{{sftpLink($playlist->videos[0]->thumbnail)}}" alt="{{$video->title}}" height="200px" width="100%" >
+                            <img src="{{imageSftpLink($playlist->videos[0]->thumbnail)}}" alt="{{$video->title}}" height="200px" width="100%" >
                     </a>
                     <div class="text">
                         <a href=""><h2>{{$playlist->name}}</h2></a>
@@ -47,7 +47,7 @@
                     @if($video->id != $cat_video->id)
                         <div class="sub-flex-colam">
                             <a href="{{route('home.single',$cat_video->id)}}" class="videos">
-                                <img src="{{sftpLink($cat_video->thumbnail)}}" alt="{{$video->title}}" height="200px" width="100%" >
+                                <img src="{{imageSftpLink($cat_video->thumbnail)}}" alt="{{$video->title}}" height="200px" width="100%" >
                             </a>
                             <div class="text">
                                 <h2>{{$cat_video->title}}</h2>

@@ -13,7 +13,7 @@
                 @foreach ($videos as $video)
                     <div class="flex-column-2-content-1">
                         <a href="{{route('home.single',$video->id)}}" class="thumbnail">
-                            <img src="{{sftpLink($video->thumbnail)}}" alt="{{$video->title}}" height="200px" width="100%" >
+                            <img src="{{imageSftpLink($video->thumbnail)}}" alt="{{$video->title}}" height="200px" width="100%" >
                         </a>
 
                         <div class="video-content-1">

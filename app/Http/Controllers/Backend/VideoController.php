@@ -53,8 +53,13 @@ class VideoController extends Controller
             $file = $req->file('video');
             $filenamewithextension = $file->getClientOriginalName();
             $extension = $file->getClientOriginalExtension();
+<<<<<<< Updated upstream
             $filenametostore = 'video_' . uniqid() . '.' . $extension;
             $directory = 'video';
+=======
+            $filenametostore = 'video_'.uniqid().'.'.$extension;
+            $directory = 'videos';
+>>>>>>> Stashed changes
             Storage::disk('remote-sftp')->makeDirectory($directory, 0755, true);
             Storage::disk('remote-sftp')->put($directory . '/' . $filenametostore, fopen($file, 'r+'));
             $video->video = $directory . '/' . $filenametostore;
@@ -63,8 +68,13 @@ class VideoController extends Controller
             $thumbnail = $req->file('thumbnail');
             $filenamewithextension = $thumbnail->getClientOriginalName();
             $extension = $thumbnail->getClientOriginalExtension();
+<<<<<<< Updated upstream
             $filenametostore = 'thumbnail_' . uniqid() . '.' . $extension;
             $directory = 'image';
+=======
+            $filenametostore = 'thumbnail_'.uniqid().'.'.$extension;
+            $directory = 'images';
+>>>>>>> Stashed changes
             Storage::disk('remote-sftp')->makeDirectory($directory, 0755, true);
             Storage::disk('remote-sftp')->put($directory . '/' . $filenametostore, fopen($thumbnail, 'r+'));
             $video->thumbnail = $directory . '/' . $filenametostore;
@@ -104,8 +114,13 @@ class VideoController extends Controller
             $file = $req->file('video');
             $filenamewithextension = $file->getClientOriginalName();
             $extension = $file->getClientOriginalExtension();
+<<<<<<< Updated upstream
             $filenametostore = 'video_' . uniqid(3) . '.' . $extension;
             $directory = 'video';
+=======
+            $filenametostore = 'video_'.uniqid(3).'.'.$extension;
+            $directory = 'videos';
+>>>>>>> Stashed changes
             Storage::disk('remote-sftp')->makeDirectory($directory, 0755, true);
             Storage::disk('remote-sftp')->put($directory . '/' . $filenametostore, fopen($file, 'r+'));
             Storage::disk('remote-sftp')->delete($video->video);
@@ -115,8 +130,13 @@ class VideoController extends Controller
             $thumbnail = $req->file('thumbnail');
             $filenamewithextension = $thumbnail->getClientOriginalName();
             $extension = $thumbnail->getClientOriginalExtension();
+<<<<<<< Updated upstream
             $filenametostore = 'thumbnail_' . uniqid(3) . '.' . $extension;
             $directory = 'image';
+=======
+            $filenametostore = 'thumbnail_'.uniqid(3).'.'.$extension;
+            $directory = 'images';
+>>>>>>> Stashed changes
             Storage::disk('remote-sftp')->makeDirectory($directory, 0755, true);
             Storage::disk('remote-sftp')->put($directory . '/' . $filenametostore, fopen($thumbnail, 'r+'));
             Storage::disk('remote-sftp')->delete($video->thumbnail);

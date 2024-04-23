@@ -65,7 +65,7 @@
                             @if($video->video)
                                 <div class="video d-flex align-items-center py-4">
                                     <video class="d-block" controls height="150" width="200">
-                                        <source src="{{ sftpLink($video->video) }}" type="video/mp4">
+                                        <source src="{{ videoSftpLink($video->video) }}" type="video/mp4">
                                     </video>
                                 </div>
                             @endif
@@ -81,7 +81,7 @@
                             @if($video->thumbnail)
 
                                 <div class="image d-flex align-items-center py-4">
-                                    <img src="{{sftpLink($video->thumbnail)}}" height="150px" width="200px" alt="{{$video->title}}">
+                                    <img src="{{imageSftpLink($video->thumbnail)}}" height="150px" width="200px" alt="{{$video->title}}">
                                 </div>
                             @endif
                         </div>

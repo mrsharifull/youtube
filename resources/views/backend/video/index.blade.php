@@ -42,10 +42,10 @@
                 <tr>
                     <td>{{$video->title}}</td>
                     <td>
-                        <video controls height="60px" width="60px"> <source src="{{ sftpLink($video->video) }}"></video>
+                        <video controls height="60px" width="60px"> <source src="{{ videoSftpLink($video->video) }}"></video>
                     </td>
                     <td>
-                       <img src="{{ sftpLink($video->thumbnail)}}" height="60px" width="60px" alt="{{$video->title}}">
+                       <img src="{{ imageSftpLink($video->thumbnail)}}" height="60px" width="60px" alt="{{$video->title}}">
                     </td>
                     <td>
                         <span class="badge {{$video->status == 1 ? 'badge-success' : 'badge-warning' }}">{{$video->status == 1 ? 'Active' : 'Deactive' }}</span>
